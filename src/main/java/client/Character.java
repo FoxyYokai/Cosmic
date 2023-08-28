@@ -2372,6 +2372,31 @@ public class Character extends AbstractCharacterObject {
         }
     }
 
+    public int getFishingBait(){
+        chrLock.lock();
+        try {
+            if(haveItemWithId(ItemId.TIER_1_BAIT, false)){ //best tier bait
+                getAbstractPlayerInteraction().gainItem(ItemId.TIER_1_BAIT, (short)-1, false, false);
+                return GameConstants.FISHING_BAIT_STRENGTH[0];
+            }
+            else if(haveItemWithId(ItemId.TIER_2_BAIT, false)){ // middle tier bait
+                getAbstractPlayerInteraction().gainItem(ItemId.TIER_2_BAIT, (short)-1, false, false);
+                return GameConstants.FISHING_BAIT_STRENGTH[1];
+            }
+            else if(haveItemWithId(ItemId.TIER_3_BAIT, false)){ // basic bait
+                getAbstractPlayerInteraction().gainItem(ItemId.TIER_3_BAIT, (short)-1, false, false);
+                return GameConstants.FISHING_BAIT_STRENGTH[2];
+            }
+            else
+            {
+                yellowMessage("You don't have any bait to fish with!");
+                return 0;
+            }
+        } finally {
+            chrLock.unlock();
+        }
+    }
+
     private static Pair<Integer, Pair<Integer, Integer>> getChairTaskIntervalRate(int maxhp, int maxmp) {
         float toHeal = Math.max(maxhp, maxmp);
         float maxDuration = SECONDS.toMillis(YamlConfig.config.server.CHAIR_EXTRA_HEAL_MAX_DELAY);
@@ -6189,11 +6214,11 @@ public class Character extends AbstractCharacterObject {
         return guildid > 0 && guildRank < 3;
     }
 
-    public boolean attemptCatchFish(int baitLevel) {
-        return YamlConfig.config.server.USE_FISHING_SYSTEM && MapId.isFishingArea(mapid) &&
-                this.getPosition().getY() > 0 &&
-                ItemConstants.isFishingChair(chair.get()) &&
-                this.getWorldServer().registerFisherPlayer(this, baitLevel);
+    public boolean canAttemptCatchFish() {
+        return YamlConfig.config.server.USE_FISHING_SYSTEM
+                && MapId.isFishingArea(mapid)
+                && ItemConstants.isFishingChair(chair.get())
+                && this.getPosition().getX() < 345;
     }
 
     public void leaveMap() {
@@ -7527,7 +7552,7 @@ public class Character extends AbstractCharacterObject {
     private void unsitChairInternal() {
         int chairid = chair.get();
         if (chairid >= 0) {
-            if (ItemConstants.isFishingChair(chairid)) {
+            if (ItemConstants.isFishingChair(chairid) && canAttemptCatchFish()) {
                 this.getWorldServer().unregisterFisherPlayer(this);
             }
 
@@ -7547,6 +7572,8 @@ public class Character extends AbstractCharacterObject {
             if (itemId >= 1000000) {    // sit on item chair
                 if (chair.get() < 0) {
                     setChair(itemId);
+                    if(ItemConstants.isFishingChair(itemId))
+                        this.getWorldServer().registerFisherPlayer(this);
                     getMap().broadcastMessage(this, PacketCreator.showChair(this.getId(), itemId), false);
                 }
                 sendPacket(PacketCreator.enableActions());
@@ -7559,7 +7586,7 @@ public class Character extends AbstractCharacterObject {
                     sendPacket(PacketCreator.cancelChair(itemId));
                 }
             } else {    // stand up
-                unsitChairInternal();
+                unsitChairInternal(); //this will also unregister the player from the fishingAttempters list.
             }
         }
     }
