@@ -235,7 +235,7 @@ public class MapId {
         return mapId >= NETTS_PYRAMID_MIN && mapId <= NETTS_PYRAMID_MAX;
     }
 
-    // Fishing
+    // Fishing - you'll probably want to change these maps.
     private static final int ON_THE_WAY_TO_THE_HARBOR = 120010000;
     private static final int PIER_ON_THE_BEACH = 251000100;
     private static final int PEACEFUL_SHIP = 541010110;

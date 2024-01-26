@@ -1,5 +1,7 @@
 package constants.id;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.stream.IntStream;
 
 public class ItemId {
@@ -65,6 +67,182 @@ public class ItemId {
     public static boolean isChair(int itemId) {
         return itemId >= CHAIR_MIN && itemId <= CHAIR_MAX;
         // alt: return itemId / 10000 == 301;
+    }
+
+    // Fishing items - set to some implemented item you wish to use as bait.
+    public static final int TIER_1_BAIT = 2466001;
+    public static final int TIER_2_BAIT = 2466002;
+    public static final int TIER_3_BAIT = 2466003;
+
+    // Rewards lists -- change to what you want. TODO - load this from DB with weight instead of this sloppy way
+    public static int [] FISHING_REWARDS_COMMON = {
+            4310002, // Fishing Coin
+            4310002, // Fishing Coin
+            4310002, // Fishing Coin
+            4310002, // Fishing Coin
+            4310002, // Fishing Coin
+            4310002, // Fishing Coin
+            4310002, // Fishing Coin
+            4310002, // Fishing Coin
+            4001126, // Maple Leaf
+            4001126, // Maple Leaf
+            4001126, // Maple Leaf
+            4001126, // Maple Leaf
+            2002016, // Thief Elixir
+            2002017, // Warrior Elixir
+            2002018, // Wizard Elixir
+            2002019, // Archer Elixir
+            2022456, // Elixir
+            2022456, // Elixir
+            2022456, // Elixir
+            2022456, // Elixir
+            2002011, // Pain Reliever
+            2002011, // Pain Reliever
+            2002027, // Stirg Signal
+            2002027, // Stirg Signal
+            2050004, // All Cure Potion
+            2050004, // All Cure Potion
+            1072043, // Smelly Gomushin
+            1082002, // Work Gloves
+            2466000, // Ore Pack
+            2210000, // Orange Mushroom transformation
+            2210001, // Ribbon Pig transformation
+            2210002, // Alien transformation
+            2100120, // Snail Summoning Sack
+            2100121, // Slime Summoning Sack
+            2100124, // Pig Summoning Sack
+            2100126, // Orange Mushroom Summoning Sack
+            2049000, // 1% Slate
+            2049000, // 1% Slate
+            2049000, // 1% Slate
+            2049000  // 1% Slate
+    };
+
+    public static int [] FISHING_REWARDS_UNCOMMON = {
+            4310002, // Fishing Coin
+            4310002, // Fishing Coin
+            4310002, // Fishing Coin
+            4310002, // Fishing Coin
+            4310002, // Fishing Coin
+            4310002, // Fishing Coin
+            4310002, // Fishing Coin
+            4310002, // Fishing Coin
+            4310002, // Fishing Coin
+            4310002, // Fishing Coin
+            2466000, // Ore Pack
+            2466000, // Ore Pack
+            2466000, // Ore Pack
+            2022457, // Power Elixir
+            2022457, // Power Elixir
+            2022457, // Power Elixir
+            2022457, // Power Elixir
+            2022117, // Maple Syrup Buff
+            2466002, // Better Bait
+            2466002, // Better Bait
+            2466002, // Better Bait
+            2466002, // Better Bait
+            1002089, // Green Bamboo Hat
+            1002090, // Blue Bamboo Hat
+            1002026, // Brown Bamboo Hat
+            1002492, // White Baseball Cap
+            1102080, // Ragged Blue Cape
+            1102083, // Ragged Green Cape
+            1002455, // Black Starry Bandana
+            1072261, // Yellow Strap Shoes
+            1072262, // Black Strap Shoes
+            1072263, // Green Strap Shoes
+            1072264, // Silver Strap Shoes
+            2049001, // 3% clean slate
+            2049001, // 3% clean slate
+            2049001, // 3% clean slate
+            2049001, // 3% clean slate
+            2043001, // 1H Sword ATT 60%
+            2043101, // 1H Axe ATT 60%
+            2043201, // 1H BW ATT 60%
+            2043301, // Dagger ATT 60%
+            2043701, // Wand MATT 60%
+            2043801, // Staff MATT 60%
+            2044001, // 2H Sword ATT 60%
+            2044101, // 2H Axe ATT 60%
+            2044201, // 2H BW ATT 60%
+            2044301, // Spear ATT 60%
+            2044401, // Polearm ATT 60%
+            2044501, // Bow ATT 60%
+            2044601, // Xbow ATT 60%
+            2044701, // Claw ATT 60%
+            2044801, // Knuckle ATT 60%
+            2044902  // Gun ATT 60%
+    };
+
+    public static int [] FISHING_REWARDS_RARE = {
+            4310002, // Fishing Coin
+            4310002, // Fishing Coin
+            4310002, // Fishing Coin
+            4310002, // Fishing Coin
+            4310002, // Fishing Coin
+            4310002, // Fishing Coin
+            4310002, // Fishing Coin
+            4310002, // Fishing Coin
+            4310002, // Fishing Coin
+            5220000, // Gachapon Coin
+            5220000, // Gachapon Coin
+            1432039, // Fishing Pole
+            1012071, // Choco Icecream Bar
+            1012072, // Melon Icecream Bar
+            1012073, // Watermelon Icecream Bar
+            1002788, // Necomimi
+            2049100, // Chaos Scroll 60%
+            2040826, // GFA 60%
+            2040817, // GFMA 60%
+            2466003, // Quality Bait
+            2466003, // Quality Bait
+            2466003, // Quality Bait
+            2466003, // Quality Bait
+            2002015, // Elpam Elixir
+            1002584, // Red Old Wisconsin
+            1002585, // Blue Old Wisconsin
+            1002586, // Purple Old Wisonsin
+            1002587, // Black Old Wisconsin
+            1002195, // Flowery Swimming Cap (NX)
+            1002311, // Traveler's Hat (NX)
+            1002418, // Newspaper Hat
+            1012107, // Branch Nose
+            1012071, // Shabby Mask
+            1102043, // Brown Adventurer Cape
+            1051140, // Yellow Bath Towel (F)
+            1050127, // Bath Towel (Black) (M)
+            2049004, // clean slate 10%
+            2049004, // clean slate 10%
+            2049004, // clean slate 10%
+            2022068, // yellow cider (magic att +35 buff)
+            2022069, // red cider (attack + 34 buff)
+            2044712, // scroll for claw for att 100% (white 100%s)
+            2044612, // scroll for Xbow for att 100% (white 100%s)
+            2044512, // scroll for bow for att 100% (white 100%s)
+            2044417, // scroll for polearm for att 100% (white 100%s)
+            2044317, // scroll for spear for att 100% (white 100%s)
+            2044217, // scroll for 2H BW for att 100% (white 100%s)
+            2044117, // scroll for 2H Axe for att 100% (white 100%s)
+            2044025, // scroll for 2H sword for att 100% (white 100%s)
+            2043812, // scroll for Staff for matt 100% (white 100%s)
+            2043712, // scroll for Wand for matt 100% (white 100%s)
+            2043312, // scroll for Dagger for att 100% (white 100%s)
+            2043217, // scroll for 1H BW for att 100% (white 100%s)
+            2043117, // scroll for 1H axe for att 100% (white 100%s)
+            2043023, // scroll for 1H sword for att 100% (white 100%s)
+            2044815, // scroll for knuckle for att 100% (white 100%s)
+            2044908, // scroll for gun for att 100% (white 100%s)
+    };
+
+    // This identifies which items in the rewards lists above should trigger
+    // a server-wide message announcing the catch. Obviously, any items here
+    // should be in the above lists somewhere. This is not a separate tier.
+    private static List<String> jackpots = Arrays.asList(
+            "2049100");
+
+    public static boolean isJackpotFishingDrop(int itemId){
+        // TODO - move this to the DB and load
+        return jackpots.contains(String.valueOf(itemId));
     }
 
     // Throwing star
